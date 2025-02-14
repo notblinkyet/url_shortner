@@ -1,0 +1,22 @@
+env: local
+
+migration_path: ../../../migrations
+
+grpc:
+  host: localhost
+  port: 8888
+  timeout: 10s
+
+main_storage:
+  type: postgres
+  host: localhost
+  port: 5432
+  db: url_shortner
+  username: postgres
+
+cache:
+  type: redis
+  host: localhost
+  port: 6379
+  db: 1
+  exp: 48h
