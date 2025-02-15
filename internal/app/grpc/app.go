@@ -82,7 +82,7 @@ func (app *App) Stop() {
 }
 
 func (app *App) MustRun() {
-	if err := app.Run; err != nil {
+	if err := app.Run(); err != nil {
 		panic(err)
 	}
 }

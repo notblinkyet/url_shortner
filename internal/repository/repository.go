@@ -1,7 +1,7 @@
 package repository
 
 import (
-	my_errors "github.com/notblinkyet/url_shortner/internal/errors"
+	my_errors "github.com/notblinkyet/url_shortner/internal/my_errors"
 
 	"github.com/notblinkyet/url_shortner/internal/repository/cache"
 	mainstorage "github.com/notblinkyet/url_shortner/internal/repository/main_storage"

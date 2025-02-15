@@ -1,0 +1,17 @@
+version: "3"
+
+tasks:
+
+  migrate_up:
+    desc: "Make migration up"
+    cmds:
+      - go run cmd/migrator/main.go
+  migrate_down:
+    desc: "Make migration down"
+    cmds:
+      - go run cmd/migrator/main.go -d
+
+  run_app:
+    desc: "Run app"
+    cmds:
+      - go run cmd/app/main.go

@@ -1,0 +1,22 @@
+env: dev
+
+migration_path: ./migrations
+
+grpc:
+  host: "0.0.0.0"
+  port: 8888
+  timeout: 10s
+
+main_storage:
+  type: postgres
+  host: url_shortner_psql
+  port: 5432
+  db: url_shortner
+  username: admin
+
+cache:
+  type: redis
+  host: url_shortner_redis
+  port: 6379
+  db: 1
+  exp: 48h

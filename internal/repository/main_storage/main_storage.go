@@ -10,7 +10,7 @@ import (
 	"github.com/jackc/pgx/v4"
 	"github.com/jackc/pgx/v4/pgxpool"
 	"github.com/notblinkyet/url_shortner/internal/config"
-	my_errors "github.com/notblinkyet/url_shortner/internal/errors"
+	my_errors "github.com/notblinkyet/url_shortner/internal/my_errors"
 )
 
 var (
@@ -64,10 +64,10 @@ func (storage *PostgresStorage) Create(url string, shortUrl string) error {
 		return my_errors.ErrAliasAlreadyUse
 	}
 	sql = `
-		INSERT INTO urls(url, shoert_url)
+		INSERT INTO urls(url, short_url)
 		VALUES ($1, $2)
 	`
-	res, err := storage.pool.Exec(ctx, sql, url)
+	res, err := storage.pool.Exec(ctx, sql, url, shortUrl)
 	if err != nil {
 		if pgErr, ok := err.(*pgconn.PgError); ok && pgErr.Code == "23505" {
 			return my_errors.ErrAlreadyExist

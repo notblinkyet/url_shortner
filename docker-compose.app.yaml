@@ -1,0 +1,52 @@
+services:
+
+  db:
+    image: postgres:14-alpine
+    container_name: url_shortner_psql
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_DB=url_shortner
+      - POSTGRES_PASSWORD=admin
+    ports:
+      - "5000:5432"
+
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "admin", "-d", "url_shortner"]
+      interval: 10s
+      timeout: 10s
+      retries: 5 
+  
+  cache:
+    image: redis:alpine
+    container_name: url_shortner_redis
+    ports:
+      - "6000:6379"
+    command: ["redis-server", "--requirepass", "admin"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+  
+  migrator:
+    build:
+      context: .
+      dockerfile: Dockerfile.migrator
+    container_name: url_shortner_migrator
+    depends_on:
+      db:
+        condition: service_healthy
+  
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.app
+    container_name: url_shortner_app
+    depends_on:
+      db:
+        condition: service_healthy
+      cache:
+        condition: service_healthy
+      migrator:
+        condition: service_completed_successfully

@@ -12,7 +12,7 @@ import (
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 
 	"github.com/notblinkyet/url_shortner/internal/config"
-	my_errors "github.com/notblinkyet/url_shortner/internal/errors"
+	my_errors "github.com/notblinkyet/url_shortner/internal/my_errors"
 )
 
 func main() {
